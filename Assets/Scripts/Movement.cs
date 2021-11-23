@@ -1,11 +1,12 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 public class Movement : MonoBehaviour
 {
     public Rigidbody rb;
     public float sidewaysForce = 1800f;
     public Spawner spawner;
-
+    public GameObject gameOverUI;
     private bool movementEnabled = true;
 
     void Update()
@@ -24,13 +25,10 @@ public class Movement : MonoBehaviour
             if (transform.position.y.CompareTo(0) == -1)
             {
                 StopEverything();
+                gameOverUI.SetActive(true);
                 Debug.Log("Game Over1");
+                StartCoroutine(reloadAfterSeconds(4));
             }
-        }
-        if (transform.position.y.CompareTo(-17) == -1)
-        {
-
-            Debug.Log("Game Over2");
         }
     }
 
@@ -38,6 +36,12 @@ public class Movement : MonoBehaviour
     {
         spawner.spawnEnabled = false;
         movementEnabled = false;
+    }
+
+    IEnumerator reloadAfterSeconds(int secs)
+    {
+        yield return new WaitForSeconds(secs);
+        SceneManager.LoadScene(0);
     }
 
     void OnCollisionEnter(UnityEngine.Collision collisionInfo)
