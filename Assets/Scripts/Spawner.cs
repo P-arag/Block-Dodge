@@ -7,7 +7,7 @@ public class Spawner : MonoBehaviour
     public GameObject obstacle;
     public float[] delay;
     public bool spawnEnabled = true;
-
+    public int waveCount = 0;
     void Start()
     {
         StartCoroutine(spawn());
@@ -36,6 +36,7 @@ public class Spawner : MonoBehaviour
             }
 
             float nextTimeToSpawn = Random.Range(delay[0], delay[1]);
+            waveCount++;
             yield return new WaitForSeconds(nextTimeToSpawn);
         }
     }
