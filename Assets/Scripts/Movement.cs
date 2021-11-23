@@ -25,7 +25,6 @@ public class Movement : MonoBehaviour
             if (transform.position.y.CompareTo(0) == -1)
             {
                 StopEverything();
-                gameOverUI.SetActive(true);
                 Debug.Log("Game Over1");
                 StartCoroutine(reloadAfterSeconds(4));
             }
@@ -40,8 +39,9 @@ public class Movement : MonoBehaviour
 
     IEnumerator reloadAfterSeconds(int secs)
     {
+        gameOverUI.SetActive(true);
         yield return new WaitForSeconds(secs);
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     void OnCollisionEnter(UnityEngine.Collision collisionInfo)
@@ -49,8 +49,9 @@ public class Movement : MonoBehaviour
         if (collisionInfo.gameObject.CompareTag("Obstacle"))
         {
             collisionInfo.gameObject.GetComponent<ObsMove>().movementEnabled = false;
-            StopEverything();
+            StartCoroutine(reloadAfterSeconds(4));
             Debug.Log("Game Over");
+            reloadAfterSeconds(2);
         }
     }
 }
