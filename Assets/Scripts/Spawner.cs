@@ -15,6 +15,7 @@ public class Spawner : MonoBehaviour
 
     IEnumerator spawn()
     {
+        Debug.Log(spawnEnabled);
         while (spawnEnabled)
         {
             int maxSpawned = spawnPoints.Length;

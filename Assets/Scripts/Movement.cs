@@ -49,6 +49,7 @@ public class Movement : MonoBehaviour
         if (collisionInfo.gameObject.CompareTag("Obstacle"))
         {
             collisionInfo.gameObject.GetComponent<ObsMove>().movementEnabled = false;
+            StopEverything();
             StartCoroutine(reloadAfterSeconds(4));
             Debug.Log("Game Over");
             reloadAfterSeconds(2);
